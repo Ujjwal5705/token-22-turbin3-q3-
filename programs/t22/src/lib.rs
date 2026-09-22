@@ -24,4 +24,15 @@ pub mod t22 {
     ) -> Result<()> {
         handle_initialize_mint(ctx, decimals, transfer_fee_basis_points, maximum_fee)
     }
+
+    /// Task 2: transfer using transfer_checked_with_fee, with the fee
+    /// computed live from the mint's current-epoch TransferFeeConfig
+    /// rather than trusted from the caller or a cached rate.
+    pub fn transfer_with_fee(
+        ctx: Context<TransferWithFee>,
+        amount: u64,
+        decimals: u8,
+    ) -> Result<()> {
+        handle_transfer_with_fee(ctx, amount, decimals)
+    }
 }
