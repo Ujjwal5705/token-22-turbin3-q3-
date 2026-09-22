@@ -7,7 +7,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-t22 = "6sC5C8VFoTpEZQVn3YK9EUSd5g3Cs6zTT3HCDBGQkyo4"
+t22 = "JBkN5Y4D3TqaR35s9tQypwLvc9Wq9Prsk9QgKeY9b2BV"
 
 [provider]
 cluster = "localnet"

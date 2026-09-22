@@ -4449,6 +4449,7 @@ dependencies = [
  "litesvm",
  "solana-account",
  "solana-compute-budget-interface",
+ "solana-instruction",
  "solana-keypair",
  "solana-message",
  "solana-signer",
