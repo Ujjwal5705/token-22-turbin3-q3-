@@ -94,20 +94,22 @@ fn create_and_fund_token_account(
     );
     svm.send_transaction(tx).expect("token account create failed");
 
-    // Thaw: this mint is born DefaultAccountState = Frozen (Task 1).
-    // Standing in here for Task 4's not-yet-built unfreeze instruction —
-    // same authority (payer = freeze authority), just invoked directly.
-    let thaw_ix = spl_token_2022::instruction::thaw_account(
-        &spl_token_2022::ID,
-        &token_account.pubkey(),
-        &mint.pubkey(),
-        &payer.pubkey(),
-        &[],
-    )
-    .unwrap();
+    // Thaw via our own Task 4 instruction — freeze authority (payer)
+    // clears this one account, mint-level default state untouched.
+    let unfreeze_accounts = accounts::UnfreezeAccount {
+        freeze_authority: payer.pubkey(),
+        token_account: token_account.pubkey(),
+        mint: mint.pubkey(),
+        token_program: spl_token_2022::ID,
+    };
+    let unfreeze_ix = solana_instruction::Instruction {
+        program_id: PROGRAM_ID,
+        accounts: unfreeze_accounts.to_account_metas(None),
+        data: instruction::UnfreezeAccount {}.data(),
+    };
     let blockhash = svm.latest_blockhash();
-    let tx = Transaction::new_signed_with_payer(&[thaw_ix], Some(&payer.pubkey()), &[payer], blockhash);
-    svm.send_transaction(tx).expect("thaw failed");
+    let tx = Transaction::new_signed_with_payer(&[unfreeze_ix], Some(&payer.pubkey()), &[payer], blockhash);
+    svm.send_transaction(tx).expect("unfreeze failed");
 
     if amount > 0 {
         let mint_to_ix = spl_token_2022::instruction::mint_to(

@@ -35,4 +35,11 @@ pub mod t22 {
     ) -> Result<()> {
         handle_transfer_with_fee(ctx, amount, decimals)
     }
+
+    /// Task 4: thaw one account after KYC clears. Separate from any
+    /// mint-level DefaultAccountState change — new accounts are still
+    /// born frozen after this call.
+    pub fn unfreeze_account(ctx: Context<UnfreezeAccount>) -> Result<()> {
+        handle_unfreeze_account(ctx)
+    }
 }
