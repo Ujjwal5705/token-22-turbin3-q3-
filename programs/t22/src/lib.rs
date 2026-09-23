@@ -42,4 +42,24 @@ pub mod t22 {
     pub fn unfreeze_account(ctx: Context<UnfreezeAccount>) -> Result<()> {
         handle_unfreeze_account(ctx)
     }
+
+    /// Task 5: re-issue the mint. Confidential transfers cannot be added
+    /// after creation, so this is a fresh mint carrying forward Task 1's
+    /// four extensions plus PermanentDelegate (seizure authority) and
+    /// ConfidentialTransferMint with manual account approval.
+    pub fn reissue_mint(
+        ctx: Context<ReissueMint>,
+        decimals: u8,
+        transfer_fee_basis_points: u16,
+        maximum_fee: u64,
+        withdraw_withheld_authority_elgamal_pubkey: [u8; 32],
+    ) -> Result<()> {
+        handle_reissue_mint(
+            ctx,
+            decimals,
+            transfer_fee_basis_points,
+            maximum_fee,
+            withdraw_withheld_authority_elgamal_pubkey,
+        )
+    }
 }
