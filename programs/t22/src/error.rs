@@ -8,4 +8,6 @@ pub enum ErrorCode {
     MissingTransferFeeConfig,
     #[msg("fee calculation overflowed")]
     FeeCalculationOverflow,
+    #[msg("failed to build a confidential transfer instruction")]
+    ConfidentialInstructionBuildFailed,
 }

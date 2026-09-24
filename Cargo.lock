@@ -4457,8 +4457,9 @@ dependencies = [
  "solana-transaction",
  "solana-zk-elgamal-proof-interface",
  "solana-zk-sdk 7.0.1",
+ "solana-zk-sdk-pod",
  "spl-token-2022-interface 3.1.1",
- "spl-token-confidential-transfer-proof-extraction 0.6.1",
+ "spl-token-confidential-transfer-proof-extraction 0.5.1",
  "spl-token-confidential-transfer-proof-generation 0.6.1",
 ]
 
